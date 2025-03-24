@@ -4,7 +4,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 let initialState = {
     isLoading:true as Boolean,
     posts: [] as Post[],
-    error: null as any
 };
 
 export let getPosts = createAsyncThunk('posts/getPosts',async ()=>{
@@ -31,9 +30,8 @@ let postsSlice = createSlice({
             state.isLoading = false;
             state.posts = action.payload
         });
-        builder.addCase(getPosts.rejected,(state, action)=>{
+        builder.addCase(getPosts.rejected,(state)=>{
             state.isLoading = false;
-            state.error = action.payload
         });
     },
 

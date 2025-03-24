@@ -20,9 +20,6 @@ import { Button, CircularProgress, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { State, storeDispach } from '../redux/store';
 import { createCommentPost } from '../redux/createCommentSlice';
-import { getUserPosts } from '../redux/userPostsSlice';
-import { getPosts } from '../redux/postsSlice';
-import { jwtDecode } from 'jwt-decode';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -59,7 +56,6 @@ export default function PostDetails({post , comments = false} : {post: Post, com
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const userID : {user: string, iat: number} = jwtDecode(`${localStorage.getItem("userToken")}`);
   let {isLoadingComment, commentsPost } = useSelector((state: State)=>state.createCommentReducer);
   const dispatch = useDispatch<storeDispach>();
     React.useEffect(() => {

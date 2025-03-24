@@ -5,7 +5,6 @@ import { stat } from "fs";
 let initialState = {
     isLoadingComments: true as boolean,
     Comemnts: [] as Comment[],
-    error : null as any
 }
 
 export let getComments = createAsyncThunk("postComments/getComments", async (PostID : string) =>{
@@ -32,9 +31,8 @@ let postCommentsSlice = createSlice({
             state.isLoadingComments = false;
             state.Comemnts = action.payload;
         });
-        builder.addCase(getComments.rejected, (state, action)=>{
+        builder.addCase(getComments.rejected, (state)=>{
             state.isLoadingComments = false;
-            state.error = action.payload;
         });
     }
 });

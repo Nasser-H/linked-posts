@@ -4,7 +4,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 let initialState = {
     isLoading: true as boolean,
     user: null as null|UserExra,
-    error: null as any
 };
 
 export let getUserData = createAsyncThunk("authUser/getUserData", async ()=>{
@@ -31,9 +30,8 @@ let authUserSlice = createSlice({
             state.isLoading = false;
             state.user = action.payload;
         });
-        builder.addCase(getUserData.rejected,(state, action)=>{
+        builder.addCase(getUserData.rejected,(state)=>{
             state.isLoading = false;
-            state.error = action.payload;
         });
     }
 });

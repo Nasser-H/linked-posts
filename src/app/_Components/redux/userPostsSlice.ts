@@ -3,8 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 let initialState = {
     isLoading : true as boolean,
-    posts : [] as Post[],
-    error : null as any
+    posts : [] as Post[]
 };
 
 export let getUserPosts = createAsyncThunk("userPosts/getUserPosts", async (UserID : string)=>{
@@ -33,9 +32,8 @@ let userPostsSlice = createSlice({
             state.isLoading = false;
             state.posts = action.payload;
         });
-        builder.addCase(getUserPosts.rejected, (state, action)=>{
+        builder.addCase(getUserPosts.rejected, (state)=>{
             state.isLoading = false;
-            state.error = action.payload;
         });
     }
 });

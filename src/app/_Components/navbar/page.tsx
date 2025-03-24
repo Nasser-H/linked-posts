@@ -11,8 +11,7 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import MenuItem from '@mui/material/MenuItem'
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { State, storeDispach } from '../redux/store';
@@ -20,7 +19,6 @@ import { removeToken } from '../redux/authSlice';
 import { useRouter } from 'next/navigation';
 import { getUserData } from '../redux/authUserSlice';
 import Image from 'next/image';
-import { BorderAllRounded } from '@mui/icons-material';
 
 const pages : {link:string;text:string}[] = [{link:"create-post",text:"Add Post"}];
 

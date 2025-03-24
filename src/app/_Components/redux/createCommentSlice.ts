@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 let initialState = {
     isLoadingComment:false as boolean,
     commentsPost: null as null|Comment[],
-    error: null as any
 };
 
 export let createCommentPost = createAsyncThunk("createComment/createCommentPost", async (body : {content: string, post: string})=>{
@@ -35,9 +34,8 @@ let createCommentSlice = createSlice({
             state.commentsPost = action.payload.comments;
             toast.success(action.payload.message);
         });
-        builder.addCase(createCommentPost.rejected, (state , action)=>{
+        builder.addCase(createCommentPost.rejected, (state)=>{
             state.isLoadingComment = false;
-            state.error = action.payload;
         });
     }
 });
