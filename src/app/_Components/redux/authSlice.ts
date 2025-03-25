@@ -1,7 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
-const initialState = {isLoading:false as boolean, token:localStorage.getItem('userToken') as null|string, error:null as null|string};
+  let token : null | string = null;
+if (typeof window !== 'undefined') {
+   token = localStorage.getItem('userToken');
+}
+
+
+const initialState = {isLoading:false as boolean, token: token as null|string, error:null as null|string};
 
 const authSlice = createSlice({
     name: 'authSlice',
@@ -9,6 +15,9 @@ const authSlice = createSlice({
     reducers:{
         setLoading:(state)=>{
             state.isLoading = true;
+        },
+        getToken:(state)=>{
+            state.token;
         },
         setToken:(state, action)=>{
             state.isLoading = false;
@@ -31,4 +40,4 @@ const authSlice = createSlice({
 });
 
 export const authReducer = authSlice.reducer;
-export const {setLoading, setToken, setError, removeToken} = authSlice.actions;
+export const {setLoading, setToken, setError, removeToken, getToken} = authSlice.actions;

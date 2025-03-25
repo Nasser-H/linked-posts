@@ -51,11 +51,7 @@ const router = useRouter();
     router.push('/login');
     handleCloseUserMenu();
   }
-  React.useEffect(()=>{
-    if(localStorage.getItem("userToken")){
-      dispatch(getUserData())
-    }
-  },[user, dispatch]);
+
 
   return (
     <AppBar position="fixed">
@@ -148,7 +144,7 @@ const router = useRouter();
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar sx={{width: 50, height: 50, border: '4px solid #fff',}}> 
                   {user && token &&
-                  <Image width={50} height={50} alt={user?.name} src={user?.photo} />
+                  <Image width={45} height={45} style={{ width:"50px",height:"50px" }} alt={user?.name} src={user?.photo} />
                   }
                 </Avatar>
               </IconButton>

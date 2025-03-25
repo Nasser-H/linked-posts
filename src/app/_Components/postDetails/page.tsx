@@ -96,7 +96,7 @@ export default function PostDetails({post , comments = false} : {post: Post, com
       </CardContent>
         }
       {post.image&&
-      <Image src={post.image} alt={`${post.body}`} width={472} height={400} style={{ width:"100%",objectFit:"cover" }} />
+      <Image src={post.image} alt={`${post.body}`} width={200} height={300}  style={{ width:"100%",objectFit:"cover" }} />
       }
       <CardActions sx={{ display:"flex",justifyContent:"space-around" }}>
         <IconButton aria-label="add to favorites">

@@ -7,18 +7,20 @@ import { State, storeDispach } from "./_Components/redux/store";
 import { getPosts } from "./_Components/redux/postsSlice";
 import PostDetails from "./_Components/postDetails/page";
 import { Post } from "./interFaces";
+import { getUserData } from "./_Components/redux/authUserSlice";
 
 export default function Home() {
 
   const dispatch = useDispatch <storeDispach>();
   const {isLoading, posts } = useSelector((state : State)=>state.postsReducer);
-  
+
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   useEffect(()=>{
     if(localStorage.getItem('userToken')){
       setLoading(false);
       dispatch(getPosts());
+      dispatch(getUserData())
     }else{
       router.push('/login');
     }

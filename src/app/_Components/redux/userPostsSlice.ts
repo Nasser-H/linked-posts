@@ -16,8 +16,6 @@ export const getUserPosts = createAsyncThunk("userPosts/getUserPosts", async (Us
         }
     });
     const data = await response.json();
-    console.log(data);
-    
     return data.posts;
 });
 
