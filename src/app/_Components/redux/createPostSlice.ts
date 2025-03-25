@@ -38,7 +38,7 @@ const createPostSlice = createSlice({
                 state.anyError = "An error occurred.";                
             }
         });
-        builder.addCase(createPost.rejected,(state, action )=>{
+        builder.addCase(createPost.rejected,(state)=>{
             state.isLoading = false;
         });
     }
