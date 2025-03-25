@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State, storeDispach } from '../redux/store';
 import { removeToken } from '../redux/authSlice';
 import { useRouter } from 'next/navigation';
-import { getUserData } from '../redux/authUserSlice';
 import Image from 'next/image';
 
 const pages : {link:string;text:string}[] = [{link:"create-post",text:"Add Post"}];
