@@ -55,7 +55,7 @@ const router = useRouter();
     if(localStorage.getItem("userToken")){
       dispatch(getUserData())
     }
-  },[user, dispatch, localStorage.getItem("userToken")]);
+  },[user, dispatch]);
 
   return (
     <AppBar position="fixed">

@@ -3,7 +3,6 @@ import toast from "react-hot-toast";
 
 const initialState = {
     isLoading : false as boolean,
-    error: null as any,
     anyError: "null" as null|string
 };
 
@@ -41,7 +40,6 @@ const createPostSlice = createSlice({
         });
         builder.addCase(createPost.rejected,(state, action )=>{
             state.isLoading = false;
-            state.error = action.payload;
         });
     }
 });

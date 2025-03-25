@@ -2,7 +2,7 @@ import { Post } from "@/app/interFaces";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    isLoading:true as Boolean,
+    isLoading:true as boolean,
     posts: [] as Post[],
 };
 
