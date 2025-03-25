@@ -1,5 +1,5 @@
 "use client"
-import { Button, FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup, TextField } from '@mui/material'
+import { Button, CircularProgress, FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup, TextField } from '@mui/material'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import React from 'react'
@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation'
 
 
 export default function Register() {
-let isLoading = useSelector((state : State) => state.authReducer.isLoading);
+const isLoading = useSelector((state : State) => state.authReducer.isLoading);
 const dispatch = useDispatch();
 const router = useRouter()
 const validationSchema = Yup.object().shape({
@@ -26,14 +26,14 @@ const validationSchema = Yup.object().shape({
 
 async function register(values : {name : string, email : string, password : string, rePassword : string, dateOfBirth : string, gender : string}){
   dispatch(setLoading());
-  let response = await fetch("https://linked-posts.routemisr.com/users/signup",{
+  const response = await fetch("https://linked-posts.routemisr.com/users/signup",{
       method:'POST',
       body: JSON.stringify(values),
       headers:{
         'Content-type': 'application/json'
     }
     });
-    let data = await response.json();
+    const data = await response.json();
     console.log(data);
     
     if(response.ok){
@@ -112,7 +112,7 @@ async function register(values : {name : string, email : string, password : stri
           <p style={{ marginTop:".1rem",color:"red" }}>*{formik.errors.gender}</p>
           }
           </FormControl>
-          <Button type='submit' variant="contained">Register</Button>
+          <Button disabled={isLoading == true} type='submit' variant="contained">{isLoading? <CircularProgress size="30px" /> : 'Register'}</Button>
         </form>
         </Paper>
   </>

@@ -1,16 +1,15 @@
 'use client'
 import { Button, CircularProgress, Paper, TextField } from '@mui/material'
-import React, { useState } from 'react'
+import React from 'react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../_Components/redux/store';
 import { setError, setLoading, setToken } from '../_Components/redux/authSlice';
 import { useRouter } from 'next/navigation';
 
 export default function Login() {
- let isLoading = useSelector((state : State) => state.authReducer.isLoading);
+ const isLoading = useSelector((state : State) => state.authReducer.isLoading);
 
  const dispatch = useDispatch();
 
@@ -21,14 +20,14 @@ export default function Login() {
   })
   async function login(values : {email:string, password:string}){
     dispatch(setLoading());
-    let respons = await fetch("https://linked-posts.routemisr.com/users/signin",{
+    const respons = await fetch("https://linked-posts.routemisr.com/users/signin",{
       method:"POST",
       body: JSON.stringify(values),
       headers:{
         'Content-type' : "application/json"
       }
     });
-    let data = await respons.json();
+    const data = await respons.json();
     if(respons.ok){
       dispatch(setToken(data))
       router.push('/');

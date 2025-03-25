@@ -1,24 +1,24 @@
 import { UserExra } from "@/app/interFaces";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-let initialState = {
+const initialState = {
     isLoading: true as boolean,
     user: null as null|UserExra,
 };
 
-export let getUserData = createAsyncThunk("authUser/getUserData", async ()=>{
-    let response = await fetch("https://linked-posts.routemisr.com/users/profile-data",{
+export const getUserData = createAsyncThunk("authUser/getUserData", async ()=>{
+    const response = await fetch("https://linked-posts.routemisr.com/users/profile-data",{
         method: "GET",
         headers:{
             "token" : `${localStorage.getItem("userToken")}`,
             "Content-Type" : "application/json"
         }
     });
-    let data = await response.json();
+    const data = await response.json();
     return data.user;
 });
 
-let authUserSlice = createSlice({
+const authUserSlice = createSlice({
     name: "authUser",
     initialState,
     reducers:{},
@@ -36,4 +36,4 @@ let authUserSlice = createSlice({
     }
 });
 
-export let authUserReducer = authUserSlice.reducer;
+export const authUserReducer = authUserSlice.reducer;

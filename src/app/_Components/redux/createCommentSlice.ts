@@ -1,15 +1,14 @@
 import { Comment } from "@/app/interFaces";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { stat } from "fs";
 import toast from "react-hot-toast";
 
-let initialState = {
+const initialState = {
     isLoadingComment:false as boolean,
     commentsPost: null as null|Comment[],
 };
 
-export let createCommentPost = createAsyncThunk("createComment/createCommentPost", async (body : {content: string, post: string})=>{
-    let response = await fetch("https://linked-posts.routemisr.com/comments",{
+export const createCommentPost = createAsyncThunk("createComment/createCommentPost", async (body : {content: string, post: string})=>{
+    const response = await fetch("https://linked-posts.routemisr.com/comments",{
         method: "POST",
         body: JSON.stringify(body),
         headers: {
@@ -17,11 +16,11 @@ export let createCommentPost = createAsyncThunk("createComment/createCommentPost
             "Content-Type" : "application/json"
         }
     });
-    let data = await response.json();
+    const data = await response.json();
     return data;
 });
 
-let createCommentSlice = createSlice({
+const createCommentSlice = createSlice({
     name: "createComment",
     initialState,
     reducers:{},
@@ -40,4 +39,4 @@ let createCommentSlice = createSlice({
     }
 });
 
-export let createCommentReducer = createCommentSlice.reducer
+export const createCommentReducer = createCommentSlice.reducer

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State, storeDispach } from '../_Components/redux/store';
 import { getUserData } from '../_Components/redux/authUserSlice';
 import Image from 'next/image';
-import { getUserPosts } from '../_Components/redux/userPostsSlice';
+import { getUserPosts, setIsPosts, setIsPostsLoaded } from '../_Components/redux/userPostsSlice';
 import PostDetails from '../_Components/postDetails/page';
 import { Post } from '../interFaces';
 import { jwtDecode } from 'jwt-decode';
@@ -15,22 +15,31 @@ import { jwtDecode } from 'jwt-decode';
 export default function Profile() {
   const router = useRouter();
   const dispatch = useDispatch<storeDispach>();
-  let { user } = useSelector((state : State)=>state.authUserReducer);
-  let { isLoading, posts } = useSelector((state : State)=>state.userPostsReducer);
+  const { user } = useSelector((state : State)=>state.authUserReducer);
+  const { isLoading, posts, isPostsLoaded } = useSelector((state : State)=>state.userPostsReducer);
   const [loading, setLoading] = useState(true);
-  const userID : {user: string, iat: number} = jwtDecode(`${localStorage.getItem("userToken")}`);
 
+  useEffect(() => {
+    return ()=>{
+      dispatch(setIsPostsLoaded());
+      dispatch(setIsPosts());
+    }
+  }, [dispatch])
+  
   useEffect(()=>{
     if(localStorage.getItem('userToken')){
+    const userID : {user: string, iat: number} = jwtDecode(`${localStorage.getItem("userToken")}`);          
       setLoading(false);
-      dispatch(getUserPosts(userID.user));      
+      if (posts.length === 0 && !isPostsLoaded) {
+          dispatch(getUserPosts(userID.user));
+        }    
       if(!user){
       dispatch(getUserData());
       }
     }else{
       router.push('/login');
     }
-  },[]);
+  },[ dispatch, router ,user, posts.length, isPostsLoaded]);
     const sortedPosts = posts
       .filter(post => post.createdAt)
       .sort((a: Post, b: Post) => {
@@ -65,11 +74,17 @@ export default function Profile() {
           </Typography>
         )}
       </Box>
-        {loading||isLoading ?<Loading/>:
-      sortedPosts?.map((post : Post )=>
-      <PostDetails key={post._id} post={post} comments={false}/>
-      )}
+      
+        {loading||isLoading ?<Loading/>: posts.length === 0 ?
+          <Typography variant="h6" sx={{ textAlign: 'center', marginTop: 4, color: 'gray' }}>
+            No posts available
+          </Typography>
+          :
+          sortedPosts?.map((post : Post )=>
+          <PostDetails key={post._id} post={post} comments={false}/>
+          )}
     </Box>
+    
   }
 
   </>

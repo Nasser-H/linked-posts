@@ -56,7 +56,7 @@ export default function PostDetails({post , comments = false} : {post: Post, com
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  let {isLoadingComment, commentsPost } = useSelector((state: State)=>state.createCommentReducer);
+  const {isLoadingComment, commentsPost } = useSelector((state: State)=>state.createCommentReducer);
   const dispatch = useDispatch<storeDispach>();
     React.useEffect(() => {
     if (commentsPost) {
@@ -65,8 +65,8 @@ export default function PostDetails({post , comments = false} : {post: Post, com
   }, [commentsPost]);
   function createComment(e : React.FormEvent){
     e.preventDefault();
-    let form = e.target as HTMLFormElement;
-    let values = {"content":form.content.value as string, "post": post._id as string };
+    const form = e.target as HTMLFormElement;
+    const values = {"content":form.content.value as string, "post": post._id as string };
     dispatch(createCommentPost(values));
     form.content.value = null;
   }

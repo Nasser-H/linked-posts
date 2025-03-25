@@ -25,9 +25,9 @@ const pages : {link:string;text:string}[] = [{link:"create-post",text:"Add Post"
 
 function Navbar() {
 const dispatch = useDispatch<storeDispach>();
-let {user} = useSelector((state: State)=>state.authUserReducer);
+const {user} = useSelector((state: State)=>state.authUserReducer);
 const router = useRouter();
- let token = useSelector((state : State)=> state.authReducer.token);
+ const token = useSelector((state : State)=> state.authReducer.token);
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -55,7 +55,7 @@ const router = useRouter();
     if(localStorage.getItem("userToken")){
       dispatch(getUserData())
     }
-  },[user]);
+  },[user, dispatch, localStorage.getItem("userToken")]);
 
   return (
     <AppBar position="fixed">

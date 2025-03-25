@@ -16,15 +16,15 @@ export default function CreatePost() {
     }else{
       router.push('/login');
     }
-  },[]);
+  },[router]);
 
-  let {isLoading, anyError} = useSelector((state : State)=>state.createPostReducer);
+  const {isLoading} = useSelector((state : State)=>state.createPostReducer);
   const dispatch = useDispatch<storeDispach>();
 
   function handleSubmit(e : FormEvent){
     e.preventDefault();
-    let form = e.target as HTMLFormElement;
-    let formData = new FormData();
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData();
     if(form.body.value){
       formData.append('body', form.body.value);
     }

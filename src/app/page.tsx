@@ -1,6 +1,4 @@
 'use client'
-import Image from "next/image";
-import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Loading from "./loading";
@@ -13,7 +11,7 @@ import { Post } from "./interFaces";
 export default function Home() {
 
   const dispatch = useDispatch <storeDispach>();
-  let {isLoading, posts } = useSelector((state : State)=>state.postsReducer);
+  const {isLoading, posts } = useSelector((state : State)=>state.postsReducer);
   
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -24,7 +22,7 @@ export default function Home() {
     }else{
       router.push('/login');
     }
-  },[]);
+  },[dispatch, router]);
   const sortedPosts = posts
     .filter(post => post.createdAt)
     .sort((a: Post, b: Post) => {

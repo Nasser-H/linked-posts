@@ -10,10 +10,10 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function SinglePost() {
 
   const [loading, setLoading] = useState(true);
-  let {postId} = useParams();
-  let disPatch = useDispatch <storeDispach>();
-  let routre = useRouter();
-  let {isLoading, post} = useSelector((state: State)=> state.PostReducer);
+  const {postId} = useParams();
+  const disPatch = useDispatch <storeDispach>();
+  const routre = useRouter();
+  const {isLoading, post} = useSelector((state: State)=> state.PostReducer);
   useEffect(()=>{
     if(localStorage.getItem("userToken")){
       setLoading(false);
@@ -21,7 +21,7 @@ export default function SinglePost() {
     }else{
       routre.push('/login');
     }
-  },[]);
+  },[disPatch, postId, routre ]);
 
 
   return <>

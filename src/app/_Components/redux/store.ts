@@ -8,7 +8,7 @@ import { userPostsReducer } from './userPostsSlice';
 import { createCommentReducer } from './createCommentSlice';
 import { postCommentsReducer } from './postCommentsSlice';
 
-export let store = configureStore({
+export const store = configureStore({
     reducer:{
         authReducer,
         postsReducer,

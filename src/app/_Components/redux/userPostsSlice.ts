@@ -1,29 +1,37 @@
 import { Post } from "@/app/interFaces";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-let initialState = {
+const initialState = {
     isLoading : true as boolean,
-    posts : [] as Post[]
+    posts : [] as Post[],
+    isPostsLoaded: false as boolean
 };
 
-export let getUserPosts = createAsyncThunk("userPosts/getUserPosts", async (UserID : string)=>{
-    let response = await fetch(`https://linked-posts.routemisr.com/users/${UserID}/posts`,{
+export const getUserPosts = createAsyncThunk("userPosts/getUserPosts", async (UserID : string)=>{
+    const response = await fetch(`https://linked-posts.routemisr.com/users/${UserID}/posts`,{
         method : "GET",
         headers: {
             "token" : `${localStorage.getItem("userToken")}`,
             "Content-Type" : "application/json"
         }
     });
-    let data = await response.json();
+    const data = await response.json();
     console.log(data);
     
     return data.posts;
 });
 
-let userPostsSlice = createSlice({
+const userPostsSlice = createSlice({
     name:"userPosts",
     initialState,
-    reducers:{},
+    reducers:{
+        setIsPostsLoaded:(state)=>{
+            state.isPostsLoaded = false;
+        },
+        setIsPosts:(state)=>{
+            state.posts = [];
+        },
+    },
     extraReducers(builder){
         builder.addCase(getUserPosts.pending, (state)=>{
             state.isLoading = true;
@@ -31,6 +39,7 @@ let userPostsSlice = createSlice({
         builder.addCase(getUserPosts.fulfilled, (state, action)=>{
             state.isLoading = false;
             state.posts = action.payload;
+            state.isPostsLoaded = true;
         });
         builder.addCase(getUserPosts.rejected, (state)=>{
             state.isLoading = false;
@@ -38,4 +47,5 @@ let userPostsSlice = createSlice({
     }
 });
 
-export let userPostsReducer = userPostsSlice.reducer;
+export const userPostsReducer = userPostsSlice.reducer;
+export const {setIsPostsLoaded, setIsPosts} = userPostsSlice.actions;

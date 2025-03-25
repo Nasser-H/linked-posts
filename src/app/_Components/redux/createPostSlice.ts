@@ -1,28 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-let initialState = {
+const initialState = {
     isLoading : false as boolean,
     error: null as any,
     anyError: "null" as null|string
 };
 
-export let createPost = createAsyncThunk('createPost/createPost', async (FormData : FormData)=>{
-    let respons = await fetch("https://linked-posts.routemisr.com/posts",{
+export const createPost = createAsyncThunk('createPost/createPost', async (FormData : FormData)=>{
+    const respons = await fetch("https://linked-posts.routemisr.com/posts",{
         method: "POST",
         body : FormData,
         headers:{
             "token" : `${localStorage.getItem("userToken")}`
         }
     });
-    let data = await respons.json();
+    const data = await respons.json();
     console.log(data);
     
     return data;
 });
 
-let createPostSlice = createSlice({
+const createPostSlice = createSlice({
     name: "createPost",
     initialState,
     reducers:{},
@@ -47,4 +46,4 @@ let createPostSlice = createSlice({
     }
 });
 
-export let createPostReducer = createPostSlice.reducer;
+export const createPostReducer = createPostSlice.reducer;

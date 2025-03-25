@@ -1,24 +1,24 @@
 import { Post } from "@/app/interFaces";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-let initialState = {
+const initialState = {
     isLoading:true as Boolean,
     posts: [] as Post[],
 };
 
-export let getPosts = createAsyncThunk('posts/getPosts',async ()=>{
-    let respons = await fetch("https://linked-posts.routemisr.com/posts?limit=47",{
+export const getPosts = createAsyncThunk('posts/getPosts',async ()=>{
+    const respons = await fetch("https://linked-posts.routemisr.com/posts?limit=47",{
         method: 'GET',
         headers:{
             "token": `${localStorage.getItem('userToken')}`,
             "Content-Type": "application/json"
         }
     });
-    let data = await respons.json();
+    const data = await respons.json();
     return data.posts;
 });
 
-let postsSlice = createSlice({
+const postsSlice = createSlice({
     name: 'posts',
     initialState,
     reducers:{},
@@ -37,4 +37,4 @@ let postsSlice = createSlice({
 
 })
 
-export let postsReducer = postsSlice.reducer;
+export const postsReducer = postsSlice.reducer;
